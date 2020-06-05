@@ -96,7 +96,7 @@ if [ "${databaseSystem,,}" = "mysql" ] || [ "${databaseSystem,,}" = "mariadb" ];
 		errorecho "ERROR: MySQL/MariaDB not installed (command mysqldump not found)."
 		errorecho "ERROR: No backup of database possible!"
 	else
-		mysqldump --extended-insert --no-autocommit --quick --single-transaction --add-drop-database -h "${dbHost}" -u "${dbUser}" -p"${dbPassword}" "${matomoDatabase}" > "${backupdir}/${fileNameBackupDb}"
+		mysqldump --defaults-extra-file=config.cnf "${matomoDatabase}" > "${backupdir}/${fileNameBackupDb}"
 
 		echo
 		echo "Compress database backup with tar and gzip..."
