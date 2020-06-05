@@ -3,13 +3,7 @@
 #
 # Bash script for creating backups of Matomo.
 #
-# Version 1.0.0
-#
-# Usage:
-# 	- With backup directory specified in the script:  ./MatomoBackup.sh
-# 	- With backup directory specified by parameter: ./MatomoBackup.sh <BackupDirectory> (e.g. ./MatomoBackup.sh /media/hdd/Matomo_backup)
-#
-# The script is based on an installation of Matomo using nginx and MariaDB, see https://decatec.de/home-server/Matomo-auf-ubuntu-server-18-04-lts-mit-nginx-mariadb-php-lets-encrypt-redis-und-fail2ban/
+# Version 1.1.0
 #
 
 #
@@ -23,7 +17,7 @@ backupMainDir=$1
 
 if [ -z "$backupMainDir" ]; then
 	# TODO: The directory where you store the Matomo backups (when not specified by args)
-    backupMainDir='/backup/matomo'
+    backupMainDir='/path/to/matomo/backup'
 fi
 
 currentDate=$(date +"%Y%m%d_%H%M%S")
@@ -32,30 +26,12 @@ currentDate=$(date +"%Y%m%d_%H%M%S")
 backupdir="${backupMainDir}/${currentDate}/"
 
 # TODO: The directory of your Matomo installation (this is a directory under your web root)
-pathToMatomo='/html/matomo'
+pathToMatomo='/path/to/matomo/'
 
-matomoBackupFiles='.htaccess robots.txt config/config.ini.php plugins/'
-
-# TODO: The service name of the web server. Used to start/stop web server (e.g. 'systemctl start <webserverServiceName>')
-webserverServiceName='apache'
-
-# TODO: Your web server user
-webserverUser='root'
-
-# TODO: The name of the database system (ome of: mysql, mariadb, postgresql)
-databaseSystem='mysql'
+matomoBackupFiles='config/config.ini.php plugins/ .htaccess robots.txt'
 
 # TODO: Your Matomo database name
 matomoDatabase='databaseName'
-
-# TODO: Your Matomo database host
-dbHost='localhost'
-
-# TODO: Your Matomo database user
-dbUser='databaseUser'
-
-# TODO: The password of the Matomo database user
-dbPassword='my_P@SsworD'
 
 # TODO: The maximum number of backups to keep (when set to 0, all backups are kept)
 maxNrOfBackups=12
@@ -88,53 +64,36 @@ fi
 #
 # Backup DB
 #
-if [ "${databaseSystem,,}" = "mysql" ] || [ "${databaseSystem,,}" = "mariadb" ]; then
-		echo
-  	echo "Backup Matomo database (MySQL/MariaDB)..."
+echo
+echo "1. Backup Matomo database (MySQL/MariaDB)..."
 
-	if ! [ -x "$(command -v mysqldump)" ]; then
-		errorecho "ERROR: MySQL/MariaDB not installed (command mysqldump not found)."
-		errorecho "ERROR: No backup of database possible!"
-	else
-		mysqldump --defaults-extra-file=config.cnf "${matomoDatabase}" > "${backupdir}/${fileNameBackupDb}"
+if ! [ -x "$(command -v mysqldump)" ]; then
+	errorecho "ERROR: MySQL/MariaDB not installed (command mysqldump not found)."
+	errorecho "ERROR: No backup of database possible!"
+else
+	mysqldump --defaults-extra-file=config.cnf "${matomoDatabase}" > "${backupdir}/${fileNameBackupDb}"
 
-		echo
-		echo "Compress database backup with tar and gzip..."
-		tar -cpzf "${backupdir}/${currentDate}_matomo-db.tar.gz" -C ${backupdir} ${fileNameBackupDb}
-
-		echo
-		echo "Delete uncompressed database backup file"
-		rm "${backupdir}/${fileNameBackupDb}"
-	fi
-
-	echo "Done"
 	echo
-elif [ "${databaseSystem,,}" = "postgresql" ]; then
-	echo "Backup Matomo database (PostgreSQL)..."
+	echo "1.1 Compress database backup with tar and gzip..."
+	tar -cpzf "${backupdir}/${currentDate}_matomo-db.tar.gz" -C ${backupdir} ${fileNameBackupDb}
+	echo "Compress database completed!"
 
-	if ! [ -x "$(command -v pg_dump)" ]; then
-		errorecho "ERROR:PostgreSQL not installed (command pg_dump not found)."
-		errorecho "ERROR: No backup of database possible!"
-	else
-		PGPASSWORD="${dbPassword}" pg_dump "${nextcloudDatabase}" -h localhost -U "${dbUser}" -f "${backupdir}/${fileNameBackupDb}"
-	fi
-
-	echo "Done"
 	echo
+	echo "1.2 Delete uncompressed database backup file"
+	rm "${backupdir}/${fileNameBackupDb}"
+	echo "Delete uncompressed database backup completed!"
 fi
 
-
 echo
-echo "DONE!"
-echo "Backup created: ${backupdir}"
+echo "Database backup completed!"
+echo
 
 #
 # Backup matomo
 #
-echo "Creating Matomo backup..."
+echo "2. Backup Matomo's files..."
 tar -cpzf "${backupdir}/${nameBackupFileDir}" -C "${pathToMatomo}" ${matomoBackupFiles}
-
-echo "Done"
+echo "File backup completed!"
 echo
 
 #
@@ -146,12 +105,16 @@ then
 
 	if [[ ${nrOfBackups} > ${maxNrOfBackups} ]]
 	then
-		echo "Removing old backups..."
+		echo "3. Removing old backups..."
 		ls -t ${backupMainDir} | tail -$(( nrOfBackups - maxNrOfBackups )) | while read -r dirToRemove; do
 			echo "${dirToRemove}"
 			rm -r "${backupMainDir}/${dirToRemove:?}"
-			echo "Done"
+			echo "Removing old backups completed!"
 			echo
 		done
 	fi
 fi
+
+echo
+echo "DONE!"
+echo "Backup created: ${backupdir}"

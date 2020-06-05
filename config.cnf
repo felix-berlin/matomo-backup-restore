@@ -8,4 +8,4 @@ extended-insert
 no-autocommit
 quick
 single-transaction
-add-drop-database
+add-drop-table
