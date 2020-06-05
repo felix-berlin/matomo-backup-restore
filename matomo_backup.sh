@@ -23,7 +23,7 @@ backupMainDir=$1
 
 if [ -z "$backupMainDir" ]; then
 	# TODO: The directory where you store the Matomo backups (when not specified by args)
-    backupMainDir='../matomo'
+    backupMainDir='/backup/matomo'
 fi
 
 currentDate=$(date +"%Y%m%d_%H%M%S")
