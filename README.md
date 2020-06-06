@@ -4,6 +4,13 @@ This repository contains one bash script and a MySQL config file.
 
 This script is aimed to use on shared hostings.
 
+- [Matomo backup](#matomo-backup)
+  - [General Informations](#general-informations)
+  - [What do you need](#what-do-you-need)
+  - [How to use this script](#how-to-use-this-script)
+    - [Argument(s)](#arguments)
+  - [Tested shared hostings](#tested-shared-hostings)
+
 ## General Informations
 
 This bash script follows the official backup recommandations on matomo.org. Learn more in the [FAQ article](https://matomo.org/faq/how-to/how-do-i-backup-and-restore-the-matomo-data/).
@@ -36,3 +43,7 @@ There is only one argument. If specified, the path to the backup can be determin
 Here is an Example:
 
 ```$ ./matomo_backup.sh /alternat/path/to/matomo/backup```
+
+## Tested shared hostings
+
+- [x] Mittwald - Webhosting XL 11.0 XL - SSD
