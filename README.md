@@ -42,7 +42,7 @@ There is only one argument. If specified, the path to the backup can be determin
 
 Here is an Example:
 
-```$ ./matomo_backup.sh /alternat/path/to/matomo/backup```
+```$ ./matomo_backup.sh /path/to/my/backup-folder```
 
 ## Tested shared hostings
 
