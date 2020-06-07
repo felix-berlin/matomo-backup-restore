@@ -1,14 +1,12 @@
 # Matomo backup
 
-This repository contains one bash script and a MySQL config file.
-
 This script is aimed to use on shared hostings.
 
 - [Matomo backup](#matomo-backup)
   - [General Informations](#general-informations)
   - [What do you need](#what-do-you-need)
   - [How to use this script](#how-to-use-this-script)
-    - [Argument(s)](#arguments)
+    - [Arguments](#arguments)
   - [Tested shared hostings](#tested-shared-hostings)
 
 ## General Informations
@@ -32,17 +30,27 @@ The only thing i added is the add-drop-table option for mysqldump.
 
 ## How to use this script
 
-- After Cloning or downloading the repository you'll have to change the variable values in the matomo_backup.sh file. All values which need to be customized are marked with TODO in the script's comments
-- You also have to customized the database credentials in the config.cnf file. You can find your matomo credentials under /config/config.ini.php
+- After Cloning or downloading the repository you'll have to change the variable values in the .main.config.sh file. All values which need to be customized are marked with TODO in the script's comments
+- You also have to customized the database credentials in the .database.config.cnf file. You can find your matomo credentials under /config/config.ini.php
 - For security reasons I recommend to keep the repository files and backup files outside the public folder. The public folder is usually /var/www
 
-### Argument(s)
+### Arguments
 
-There is only one argument. If specified, the path to the backup can be determined.
+$1 = backupMainDir
+
+**Default:** /backup/matomo
+
+---
+
+$2 = pathToMatomo
+
+**Default:** /html/matomo
+
+---
 
 Here is an Example:
 
-```$ ./matomo_backup.sh /path/to/my/backup-folder```
+```$ ./matomo_backup.sh /path/to/my/backup-folder /path/to/matomo```
 
 ## Tested shared hostings
 
