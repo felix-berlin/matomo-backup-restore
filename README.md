@@ -34,7 +34,8 @@ The only thing I added is the add-drop-table option for mysqldump.
 
 ## How to use this script
 
-- After Cloning or downloading the repository you'll have to change the variable values in the .main.config.sh file. All values which need to be customized are marked with TODO in the script's comments
+- After Cloning or downloading the repository duplicate both config files and rename it so that ".example" is removed. Now the config files are no longer tracked by git.
+- Then you'll have to change the variable values in the .main.config.sh file. All values which need to be customized are marked with TODO in the script's comments.
 - You also have to customized the database credentials in the .database.config.cnf file. You can find your Matomo credentials under /config/config.ini.php
 - For security reasons I recommend to keep the repository files and backup files outside the public folder. The public folder is usually /var/www
 - When you have customized the config files you can do both, make a manually backup or create automatic backups via a cronjob
