@@ -1,18 +1,19 @@
 # Matomo backup
 
-This script is aimed to use on shared hostings.
+This script is aimed to use on shared hosting's.
 
 - [Matomo backup](#matomo-backup)
-  - [General Informations](#general-informations)
+  - [General information's](#general-informations)
   - [What do you need](#what-do-you-need)
   - [How to use this script](#how-to-use-this-script)
     - [Arguments](#arguments)
-  - [Tested shared hostings](#tested-shared-hostings)
+  - [Tested shared hosting's](#tested-shared-hostings)
+  - [Roadmap](#roadmap)
 
-## General Informations
+## General information's
 
-This bash script follows the official backup recommandations on matomo.org. Learn more in the [FAQ article](https://matomo.org/faq/how-to/how-do-i-backup-and-restore-the-matomo-data/).
-The only thing i added is the add-drop-table option for mysqldump.
+This bash script follows the official backup recommendations on matomo.org. Learn more in the [FAQ article](https://matomo.org/faq/how-to/how-do-i-backup-and-restore-the-matomo-data/).
+The only thing I added is the add-drop-table option for mysqldump.
 
 **The script does the following steps:**
 
@@ -31,8 +32,9 @@ The only thing i added is the add-drop-table option for mysqldump.
 ## How to use this script
 
 - After Cloning or downloading the repository you'll have to change the variable values in the .main.config.sh file. All values which need to be customized are marked with TODO in the script's comments
-- You also have to customized the database credentials in the .database.config.cnf file. You can find your matomo credentials under /config/config.ini.php
+- You also have to customized the database credentials in the .database.config.cnf file. You can find your Matomo credentials under /config/config.ini.php
 - For security reasons I recommend to keep the repository files and backup files outside the public folder. The public folder is usually /var/www
+- When you have customized the config files you can do both, make a manually backup or create automatic backups via a cronjob
 
 ### Arguments
 
@@ -48,10 +50,15 @@ $2 = pathToMatomo
 
 ---
 
-Here is an Example:
+Here is an example:
 
 ```$ ./matomo_backup.sh /path/to/my/backup-folder /path/to/matomo```
 
-## Tested shared hostings
+## Tested shared hosting's
 
 - [x] Mittwald - Webhosting XL 11.0 - SSD
+
+## Roadmap
+
+- [ ] A script to automatic restore a backup file
+- [ ] Finding a more secure solution to store database credentials
