@@ -1,0 +1,11 @@
+[client]
+host=localhost
+user=databaseUser
+password=my_P@SsworD
+
+[mysqldump]
+extended-insert
+no-autocommit
+quick
+single-transaction
+add-drop-table
