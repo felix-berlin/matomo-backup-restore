@@ -1,2 +1,2 @@
-.*
-!/.gitignore
+.database.config.cnf
+.main.config.sh
