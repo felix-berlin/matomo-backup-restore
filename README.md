@@ -1,12 +1,15 @@
-# Matomo backup
+# Matomo (Piwik) backup and restore
 
 This script is aimed to use on shared hosting's.
 
-- [Matomo backup](#matomo-backup)
+Table of Contents:
+
+- [Matomo (Piwik) backup and restore](#matomo-piwik-backup-and-restore)
   - [General information's](#general-informations)
   - [What do you need](#what-do-you-need)
   - [How to use this script](#how-to-use-this-script)
     - [Arguments](#arguments)
+  - [How to restore a backup](#how-to-restore-a-backup)
   - [Tested shared hosting's](#tested-shared-hostings)
   - [Roadmap](#roadmap)
 
@@ -54,6 +57,17 @@ Here is an example:
 
 ```$ ./matomo_backup.sh /path/to/my/backup-folder /path/to/matomo```
 
+## How to restore a backup
+
+1. Import the Mysql backup data in a new Mysql database you have created
+2. Download the latest version of Matomo, unzip and upload
+3. Copy the file config.ini.php from the backup into your new Matomo setup. You might have to edit the database connection settings in the file if they have changed.
+4. Copy any Third party Plugin installed from the Marketplace from the backup (or download from the marketplace the latest version of these plugins) and copy them into your new Matomo setup.
+5. Copy all the other files you have saved with the script
+6. Visit Matomo and check that everything is working correctly!
+
+In the future there will be a restore bash script. (See [roadmap](#roadmap))
+
 ## Tested shared hosting's
 
 - [x] Mittwald - Webhosting XL 11.0 - SSD
@@ -62,3 +76,4 @@ Here is an example:
 
 - [ ] A script to automatic restore a backup file
 - [ ] Finding a more secure solution to store database credentials
+- [ ] Save backups on remote server via SSH
