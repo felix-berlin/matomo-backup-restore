@@ -48,3 +48,4 @@ fileNameBackupDb="${currentDate}_matomo-db.sql"
 
 # TODO: Your Matomo database name
 matomoDatabase='myMatomoDatabaseName'
+
