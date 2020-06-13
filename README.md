@@ -2,6 +2,8 @@
 
 This script is aimed to use on shared hosting's.
 
+![Alt text](matomo_backup_restore_terminal_screenshot.jpg?raw=true "Terminal screenshot")
+
 Table of Contents:
 
 - [Matomo (Piwik) backup and restore](#matomo-piwik-backup-and-restore)
