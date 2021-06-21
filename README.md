@@ -1,5 +1,8 @@
 # Matomo (Piwik) backup and restore
 
+![GitHub all releases](https://img.shields.io/github/downloads/felix-berlin/matomo-backup-restore/total?style=flat-square)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/felix-berlin/matomo-backup-restore?style=flat-square)
+
 This script is aimed to use on shared hosting's.
 
 ![Alt text](matomo_backup_restore_terminal_screenshot.jpg?raw=true "Terminal screenshot")
